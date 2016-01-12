@@ -1,4 +1,6 @@
+#Pair programming emilymlam & lenylane
 from random import choice
+
 
 
 def open_and_read_file(file_path):
@@ -8,32 +10,39 @@ def open_and_read_file(file_path):
     the file's contents as one string of text.
     """
 
-    txt = open(file_path)
+    txt = open(file_path).read()
 
-    read_txt = txt.read()
-    return read_txt
+    return txt
 
-open_and_read_file("green-eggs.txt")
 
-# def make_chains(text_string):
-#     """Takes input text as string; returns _dictionary_ of markov chains.
 
-#     A chain will be a key that consists of a tuple of (word1, word2)
-#     and the value would be a list of the word(s) that follow those two
-#     words in the input text.
+def make_chains(text_string):
+    """Takes input text as string; returns _dictionary_ of markov chains.
 
-#     For example:
+    A chain will be a key that consists of a tuple of (word1, word2)
+    and the value would be a list of the word(s) that follow those two
+    words in the input text.
 
-#         >>> make_chains("hi there mary hi there juanita")
-#         {('hi', 'there'): ['mary', 'juanita'], ('there', 'mary'): ['hi'], ('mary', 'hi': ['there']}
-#     """
+    For example:
 
-#     chains = {}
+        >>> make_chains("hi there mary hi there juanita")
+        {('hi', 'there'): ['mary', 'juanita'], ('there', 'mary'): ['hi'], ('mary', 'hi': ['there']}
+    """
 
-#     # your code goes here
+    chains = {}
 
-#     return chains
+    words = text_string.split()
 
+    for i in range(len(words) - 2):
+        key = tuple([words[i], words[i + 1]])
+
+        if key in chains:
+            value = chains[key].append(words[i +2])
+        else:
+            chains[key] = []
+            value = chains[key].append(words[i +2])
+
+    return chains
 
 # def make_text(chains):
 #     """Takes dictionary of markov chains; returns random text."""
@@ -45,10 +54,12 @@ open_and_read_file("green-eggs.txt")
 #     return text
 
 
-# input_path = "green-eggs.txt"
+input_path = "green-eggs.txt"
+open_and_read_file(input_path)
 
-# # Open the file and turn it into one long string
-# input_text = open_and_read_file(input_path)
+# Open the file and turn it into one long string
+input_text = open_and_read_file(input_path)
+make_chains(input_text)
 
 # # Get a Markov chain
 # chains = make_chains(input_text)
